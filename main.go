@@ -15,7 +15,7 @@ const (
 )
 
 func main() {
-	inputFile, err := ioutil.ReadFile("input.txt")
+	inputFile, err := ioutil.ReadFile("data/input.txt")
 	if err != nil {
 		fmt.Printf(err.Error())
 		os.Exit(Failed)
@@ -28,19 +28,19 @@ func main() {
 		os.Exit(Failed)
 	}
 	s := int(math.Sqrt(float64(size)))
-	var matrix1 [10][10]int64
+	var matrix [10][10]int64 // max input matrix size is 10*10
 	data := strings.Split(contents, "\n")
 	for _, value := range data {
 		lines := strings.Fields(value)
 		row, _ := strconv.ParseInt(lines[0], 10, 64)
 		col, _ := strconv.ParseInt(lines[1], 10, 64)
 		val, _ := strconv.ParseInt(lines[2], 10, 64)
-		matrix1[row][col] = val
+		matrix[row][col] = val
 	}
-	printMatrix(matrix1, "A =>", s)
-	tran_matrix := transpose(matrix1, s)
-	printMatrix(tran_matrix, "A`", s)
-	result := multiply(matrix1, tran_matrix, s)
+	printMatrix(matrix, "A =>", s)
+	tranMatrix := transpose(matrix, s)
+	printMatrix(tranMatrix, "A`", s)
+	result := multiply(matrix, tranMatrix, s)
 	printMatrix(result, "A*A`", s)
 }
 
